@@ -1,0 +1,82 @@
+<form #form="ngForm" autocomplete="off" (submit)="getWeather(form)">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text bg-white">
+          <i class="fas fa-city"></i>
+        </div>
+      </div>
+      <input name="city" type="text" class="form-control" #city="ngModel" [(ngModel)]="requestOptions.city" placeholder="Enter a city" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white">
+            <i class="fas fa-tools"></i>
+          </div>
+        </div>
+        <select name="lang" class="form-control" [(ngModel)]="requestOptions.language" (change)="toLanguage($event)">
+          <option *ngFor="let lang of requestOptions.languageDictionary.Keys()" [value]="lang">{{lang}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white">
+            <i class="fas fa-tools"></i>
+          </div>
+        </div>
+        <select name="unit" class="form-control" [(ngModel)]="requestOptions.unit" (change)="toUnit($event)">
+          <option *ngFor="let unit of requestOptions.unitsDictionary.Keys()" [value]="unit">{{unit}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text bg-white">
+          <i class="fas fa-arrows-alt-h"></i>
+        </div>
+      </div>
+      <input name="period" type="number" class="form-control" #period="ngModel" [(ngModel)]="requestOptions.period" placeholder="Enter a period of time" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" type="submit">Get weather</button>
+  </div>
+
+</form>
+
+<!--<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!forecasts"><em>Loading...</em></p>
+
+
+
+<table class='table table-striped' *ngIf="forecasts">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.dateFormatted }}</td>
+      <td>{{ forecast.temperatureC }}</td>
+      <td>{{ forecast.temperatureF }}</td>
+      <td>{{ forecast.summary }}</td>
+    </tr>
+  </tbody>
+</table>-->
