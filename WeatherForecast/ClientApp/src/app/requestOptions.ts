@@ -86,7 +86,6 @@ export class RequestOptions {
     this.unitsDictionary.Add("Fahrenheit", "imperial");
     this.unitsDictionary.Add("Celsius", "metric");
     this.unitsDictionary.Add("Kelvin", "standard");
-
   }
 
   public getRequestOptions(): string {

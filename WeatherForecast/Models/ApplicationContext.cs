@@ -13,6 +13,6 @@ namespace WeatherForecast.Models
 
         }
 
-        public DbSet<Weather> Weather { get; set; }
+        public DbSet<Forecast> Forecasts { get; set; }
     }
 }

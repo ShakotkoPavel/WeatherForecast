@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WeatherForecast.Models;
 
 namespace WeatherForecast.Controllers
@@ -10,43 +11,33 @@ namespace WeatherForecast.Controllers
     [Route("api/weather")]
     public class WeatherController : Controller
     {
-        ApplicationContext db;
-        public WeatherController(ApplicationContext context)
-        {
-            db = context;
-        }
+        readonly IWeatherService _weatherService;
+        readonly ISaveService _saveService;
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Weather weather)
+        public WeatherController(IWeatherService weatherService, ISaveService saveService)
         {
-            if (ModelState.IsValid)
-            {
-                db.Weather.Add(weather);
-                await db.SaveChangesAsync();
-                return Ok(weather);
-            }
-            return BadRequest(weather);
+            _weatherService = weatherService;
+            _saveService = saveService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetWeather(RequestOptions options)
         {
-            return Ok();
+            List<Forecast> data = null;
+
+            await RetryHelper.RetryOnExceptionAsync(3, TimeSpan.FromSeconds(5), async () => {
+                data = await _weatherService.GetWeather(options);
+            });
+
+            try
+            {
+                await _saveService.SaveForecast(data);
+                return Ok(data);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(data);
+            }
         }
-
-        //public class WeatherForecast
-        //{
-        //    public string DateFormatted { get; set; }
-        //    public int TemperatureC { get; set; }
-        //    public string Summary { get; set; }
-
-        //    public int TemperatureF
-        //    {
-        //        get
-        //        {
-        //            return 32 + (int)(TemperatureC / 0.5556);
-        //        }
-        //    }
-        //}
     }
 }

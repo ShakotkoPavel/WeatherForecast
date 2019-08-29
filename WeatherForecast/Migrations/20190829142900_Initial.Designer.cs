@@ -10,7 +10,7 @@ using WeatherForecast.Models;
 namespace WeatherForecast.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190828082038_Initial")]
+    [Migration("20190829142900_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace WeatherForecast.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WeatherForecast.Models.Weather", b =>
+            modelBuilder.Entity("WeatherForecast.Models.Forecast", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace WeatherForecast.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weather");
+                    b.ToTable("Forecasts");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,7 +9,7 @@ namespace WeatherForecast.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Weather",
+                name: "Forecasts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -23,14 +23,14 @@ namespace WeatherForecast.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weather", x => x.Id);
+                    table.PrimaryKey("PK_Forecasts", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Weather");
+                name: "Forecasts");
         }
     }
 }

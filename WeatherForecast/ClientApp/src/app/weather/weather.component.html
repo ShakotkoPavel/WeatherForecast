@@ -1,57 +1,85 @@
 <form #form="ngForm" autocomplete="off" (submit)="getWeather(form)">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text bg-white">
-          <i class="fas fa-city"></i>
-        </div>
-      </div>
-      <input name="city" type="text" class="form-control" #city="ngModel" [(ngModel)]="requestOptions.city" placeholder="Enter a city" />
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text bg-white">
-            <i class="fas fa-tools"></i>
+  <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text bg-white">
+                <i class="fas fa-city"></i>
+              </div>
+            </div>
+            <input name="city" type="text" class="form-control" #city="ngModel" [(ngModel)]="requestOptions.city" placeholder="Enter a city" />
           </div>
         </div>
-        <select name="lang" class="form-control" [(ngModel)]="requestOptions.language" (change)="toLanguage($event)">
-          <option *ngFor="let lang of requestOptions.languageDictionary.Keys()" [value]="lang">{{lang}}</option>
-        </select>
       </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text bg-white">
-            <i class="fas fa-tools"></i>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                  <i class="fas fa-tools"></i>
+                </div>
+              </div>
+              <select name="lang" class="form-control" [(ngModel)]="requestOptions.language" (change)="toLanguage($event)">
+                <option *ngFor="let lang of requestOptions.languageDictionary.Keys()" [value]="lang">{{lang}}</option>
+              </select>
+            </div>
           </div>
         </div>
-        <select name="unit" class="form-control" [(ngModel)]="requestOptions.unit" (change)="toUnit($event)">
-          <option *ngFor="let unit of requestOptions.unitsDictionary.Keys()" [value]="unit">{{unit}}</option>
-        </select>
       </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text bg-white">
-          <i class="fas fa-arrows-alt-h"></i>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                  <i class="fas fa-tools"></i>
+                </div>
+              </div>
+              <select name="unit" class="form-control" [(ngModel)]="requestOptions.unit" (change)="toUnit($event)">
+                <option *ngFor="let unit of requestOptions.unitsDictionary.Keys()" [value]="unit">{{unit}}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
-      <input name="period" type="number" class="form-control" #period="ngModel" [(ngModel)]="requestOptions.period" placeholder="Enter a period of time" />
-    </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text bg-white">
+                <i class="fas fa-arrows-alt-h"></i>
+              </div>
+            </div>
+            <input name="period" type="number" class="form-control" #period="ngModel" [(ngModel)]="requestOptions.period" max="5" min="1" placeholder="Enter a period of time" />
+          </div>
+        </div>
+      </div>
   </div>
+
+
 
   <div class="form-group">
     <button class="btn btn-success btn-lg btn-block" type="submit">Get weather</button>
   </div>
+  <table class="table table-hover">
+    <tr>
+      <th>City</th>
+      <th>Date</th>
+      <th>Average Temperature</th>
+      <th>Average Pressure</th>
+      <th>Unit</th>
+    </tr>
+    <tr *ngFor="let item of forecasts">
+      <td>{{item.city}}</td>
+      <td>{{item.date | date: 'dd.MM.yyyy'}}</td>
+      <td>{{item.averageTemperature}}</td>
+      <td>{{item.averagePressure}}</td>
+      <td>{{item.unit}}</td>
+    </tr>
 
+  </table>
 </form>
 
 <!--<h1>Weather forecast</h1>

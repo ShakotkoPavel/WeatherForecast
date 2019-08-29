@@ -17,6 +17,17 @@ namespace WeatherForecast.Models
 
         public RequestOptions()
         {
+
+        }
+
+        public override string ToString()
+        {
+            return "&q=" + this.City + "&units=" + this.Unit + "&lang=" + this.Language;
+        }
+
+        public string GetStandartUnit()
+        {
+            return Unit == "imperial" ? "Fahrenheit" : Unit == "metric" ? "Celsius" : "Kelvin";
         }
     }
 }
