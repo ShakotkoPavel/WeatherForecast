@@ -69,10 +69,11 @@ namespace WeatherForecast.Models
 
             try
             {
+                var city = data.city.name;
                 var listOfDays = data.list.TakeWhile(x => x.dt_txt.Date <= endDate).ToList();
                 var averagePressure = Math.Round(listOfDays.Average(x => x.main.pressure), 2);
 
-                listOfData = listOfDays.GroupBy(x => x.dt_txt.Date).Select((x => new Forecast { City = requestOptions.City, Date = x.Key, Unit = requestOptions.GetStandartUnit(), AverageTemperature = Math.Round(x.Average(p => p.main.temp), 2), Rain = "", AveragePressure = averagePressure })).ToList();
+                listOfData = listOfDays.GroupBy(x => x.dt_txt.Date).Select((x => new Forecast { City = city, Date = x.Key, Unit = requestOptions.GetStandartUnit(), AverageTemperature = Math.Round(x.Average(p => p.main.temp), 2), Rain = "", AveragePressure = averagePressure })).ToList();
             }
             catch (Exception ex)
             {
